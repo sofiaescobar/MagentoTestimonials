@@ -1,0 +1,20 @@
+<?php
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<nav id="nav">
+    <ol class="nav-primary">
+        <?php $_menu = $this->renderCategoriesMenuHtml('0','level0') ?>
+
+        <?php if($_menu): ?>
+
+            <?php echo $_menu ?>
+
+        <?php endif ?>
+    </ol>
+</nav>

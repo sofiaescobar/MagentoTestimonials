@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sofia_Testimonials>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Sofia_Testimonials>
+    </modules>
+</config>

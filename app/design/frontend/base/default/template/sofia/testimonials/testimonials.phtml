@@ -1,0 +1,112 @@
+
+<div class="page-title">
+    <h1><?php echo Mage::helper('sofia_testimonials')->__('Testimonials') ?>
+<?php
+    if(Mage::getSingleton('customer/session')->isLoggedIn()){
+?>
+    <div class="buttonContainer">
+
+        <button type="button" title="<?php echo $this->__('Continue') ?>" class="button testimonialbutton" id="addtestimonialbutton" onclick="addTestimonial('form-container')">
+    <span>
+        <span>
+            <?php echo $this->__('Add Testimonial') ?>
+        </span>
+    </span>
+</button>
+    <button type="button" title="<?php echo $this->__('Continue') ?>" class="button testimonialbutton" style="display:none" id="testimonialcancelbutton" onclick="addTestimonial('form-container')">
+    <span>
+        <span>
+            <?php echo $this->__('Cancel') ?>
+        </span>
+    </span>
+    </button>
+
+    </div>
+
+</div>
+
+</h1>
+<div id="form-container" class="formcontainer" style="display:none">
+<form action="<?php echo Mage::getUrl('testimonials/Testimonials/saveTestimonial') ?>" id="testimonialsForm" method="post" enctype="multipart/form-data" class="scaffold-form">
+            <div class="fieldset">
+                <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+                <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+                <ul class="form-list">
+                    <li class="fields">
+                        <div class="field">
+                            <label for="name" class="required"><em>*</em><?php echo Mage::helper('sofia_testimonials')->__('Name') ?></label>
+                            <div class="input-box">
+                                <input name="name" id="name" title="<?php echo Mage::helper('sofia_testimonials')->__('Name') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="Title"><?php echo Mage::helper('sofia_testimonials')->__('Title') ?></label>
+                        <div class="input-box">
+                            <input name="title" id="title" title="<?php echo Mage::helper('sofia_testimonials')->__('Title') ?>" value="" class="input-text"  />
+                        </div>
+                    </li>
+                    <li class="wide">
+                        <label for="testimonial" class="required"><em>*</em><?php echo Mage::helper('sofia_testimonials')->__('Testimonial') ?></label>
+                        <div class="input-box">
+                            <textarea name="testimonial" id="testimonial" title="<?php echo Mage::helper('sofia_testimonials')->__('Testimonial') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                        </div>
+                    </li>
+                    <li class="wide">
+                        <label for="imagetestimonial" <?php echo Mage::helper('sofia_testimonials')->__('Image') ?></label>
+                        <div class="input-box">
+                            <input type="file" name="testimonialimg" id="testimonialimg" title="<?php echo Mage::helper('sofia_testimonials')->__('Image') ?>" class="" cols="5" rows="3"></input>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="buttons-set">
+                <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+                <button type="submit" title="<?php echo Mage::helper('sofia_testimonials')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+            </div>
+        </form>
+</div>
+        <script type="text/javascript">
+            //<![CDATA[
+            var contactForm = new VarienForm('testimonialsForm', true);
+            //]]>
+        </script>
+
+    <?php
+    }
+
+// echo $this->getChildHTML();
+?>
+<?php
+$collection = Mage::getModel('sofia_testimonials/testimonials')->getCollection()->addFieldToFilter( 'enabled', '1' );
+
+foreach($collection as $testimonial){ ?>
+<div id="block">
+    <h3><?php echo $testimonial->getTitle(); ?></h3>
+    <div class="photo">
+        <img src="<?php  echo $this->getSkinUrl('images/testimonials/photo-bg.png');?>" alt="" class="photo-bg">
+        <img src="<?php  echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'/testimonials/'.$testimonial->getImage();?>" alt="" class="photo">
+    </div>
+    <p class="content"><span class="laquo">&nbsp;</span><?php echo $testimonial->getTestimonial(); ?><span class="raquo">&nbsp;</span></p>
+    <div class="sign">
+        <a href="#"><?php echo $testimonial->getUserName(); ?></a>
+        <p><?php echo $testimonial->getTimestamp(); ?></p>
+    </div>
+</div>
+<?php
+}
+?>
+<script>
+    function addTestimonial(elementID){
+        (function(style) {
+            style.display = style.display === 'none' ? 'block' : 'none';
+        })(document.getElementById(elementID).style);
+        (function(style) {
+            style.display = style.display === 'none' ? 'block' : 'none';
+        })(document.getElementById('testimonialcancelbutton').style);
+        (function(style) {
+            style.display = style.display === 'none' ? 'block' : 'none';
+        })(document.getElementById('addtestimonialbutton').style);
+    }
+
+</script>

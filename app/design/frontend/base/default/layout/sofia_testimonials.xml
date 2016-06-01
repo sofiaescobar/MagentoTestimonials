@@ -1,0 +1,36 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="root">
+            <reference name="top.links">
+                <action method="addLink" translate="label title">
+                    <label>Testimonials</label>
+                    <url>testimonials/Testimonials/index</url>
+                    <urlParams helper="core/url/getHomeUrl"/>
+                    <position>100</position>
+                    <title>Testimonials</title>
+                    <prepare/>
+                </action>
+            </reference>
+        </reference>
+        <remove name="catalog.topnav"/>
+
+        <reference name="top.menu">
+            <!--Note: use custom block file for menu drawing and default template file-->
+
+            <block type="testimonials/navigation" name="newmenu.topnav" template="sofia/testimonials/topmenu.phtml">
+                <block type="page/html_topmenu_renderer" name="catalog.topnav.renderer" template="page/html/topmenu/renderer.phtml"/>
+            </block>
+        </reference>
+    </default>
+    <testimonials_testimonials_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/sofia_testimonials.css</stylesheet>
+            </action>
+        </reference>
+		<reference name="content">
+      <block type="testimonials/navigation" name="testimonials" template="sofia/testimonials/testimonials.phtml">
+</block>
+        </reference>
+    </testimonials_testimonials_index>
+</layout>
